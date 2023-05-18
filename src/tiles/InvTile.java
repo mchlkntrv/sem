@@ -1,11 +1,15 @@
 package tiles;
 import hra.Hrac;
+import itemy.Predmet;
+
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-public class WaterTile extends GameTile {
-    public WaterTile(int riadok, int stlpec, Hrac hrac) {
-        super("voda", riadok, stlpec, new TileButton("voda"), hrac);
+public class InvTile extends GameTile {
+    private Predmet predmetVTile;
+    public InvTile(int riadok, int stlpec, Hrac hrac) {
+        super("inv", riadok, stlpec, new TileButton("inv"), hrac);
+        this.predmetVTile = null;
     }
 
     @Override
@@ -20,10 +24,6 @@ public class WaterTile extends GameTile {
         JMenuItem moznost1 = new JMenuItem("Naber vodu.");
         moznost1.addActionListener(e -> System.out.println(super.getHrac().getMeno()));
         moznostiKliknutia.add(moznost1);
-
-        JMenuItem moznost2 = new JMenuItem("Napi sa.");
-        moznost2.addActionListener(e -> System.out.println("abcd"));
-        moznostiKliknutia.add(moznost2);
 
         return moznostiKliknutia;
     }

@@ -1,7 +1,7 @@
 package tiles;
 
 import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
 
 public class TileButton extends JButton {
     public TileButton(String nazovObrazku) {
