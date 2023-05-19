@@ -1,6 +1,8 @@
 package tiles;
 import hra.Hrac;
 import hra.Mapa;
+import itemy.*;
+
 import javax.swing.BorderFactory;
 import javax.swing.JPopupMenu;
 import java.awt.Color;
@@ -43,6 +45,7 @@ public abstract class GameTile implements Clickable {
     public Hrac getHrac() {
         return this.hrac;
     }
+
 
     public void nastavMouseListener() {
         this.tlacitko.setBorderPainted(false);

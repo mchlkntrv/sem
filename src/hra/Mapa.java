@@ -11,7 +11,6 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.util.*;
 
 public class Mapa implements InvPocuvac {
     private GameTile[] policka;
@@ -19,7 +18,7 @@ public class Mapa implements InvPocuvac {
     private Inventar inventar;
     private JFrame frame;
 
-    public Mapa(Hrac hrac) {
+    public Mapa() {
         this.frame = new JFrame();
         this.frame.setLayout(new BorderLayout());
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,7 +34,7 @@ public class Mapa implements InvPocuvac {
         denLabel.setText("Deň: " + this.den);
         info.add(denLabel);
         JLabel peniazeLabel = new JLabel();
-        peniazeLabel.setText("Peniaze: " + hrac.getPeniaze());
+        peniazeLabel.setText("Peniaze: " + Hrac.static());
         info.add(peniazeLabel);
 
         JLabel coin = new JLabel();
@@ -50,10 +49,15 @@ public class Mapa implements InvPocuvac {
         inventarPanel.setLayout(new GridLayout(1, 8));
         for (int r = 0; r < 1; r++) {
             for (int s = 0; s < 8; s++) {
-                this.policka[s] = new InvTile(this, r + 1, s + 1, hrac, hrac.getPeniaze().);
+                if (hrac.getInventar().getPredmet(s) != null) {
+                    this.policka[s] = new InvTile(this, r + 1, s + 1, hrac, hrac.getInventar().getPredmet(s));
+                } else {
+                    this.policka[s] = new InvTile(this, r + 1, s + 1, hrac, null);
+                }
                 inventarPanel.add(this.policka[s].getTlacitko());
             }
         }
+
 
         JPanel mapa = new JPanel();
         mapa.setLayout(new GridLayout(7, 8));
@@ -69,6 +73,12 @@ public class Mapa implements InvPocuvac {
             }
         }
 
+        InvTile policko = (InvTile)this.policka[0];
+        policko.setPredmet(hrac.getInventar().getPredmet(0));
+        this.policka[0] = policko;
+
+
+
         JPanel invAMapa = new JPanel();
         invAMapa.setLayout(new BorderLayout());
         invAMapa.add(inventarPanel, BorderLayout.NORTH);
@@ -82,14 +92,7 @@ public class Mapa implements InvPocuvac {
 
 
         this.inventar = hrac.getInventar();
-        this.inventar.setListener(new InvPocuvac() {
-            @Override
-            public void zmenaInv(Inventar inv) {
-                if (!inv.jeMiesto()) {
-                    JOptionPane.showMessageDialog(Mapa.this.frame, "Inventory is full!", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        });
+
     }
 
     @Override
