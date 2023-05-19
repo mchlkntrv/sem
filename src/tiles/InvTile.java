@@ -10,6 +10,11 @@ public class InvTile extends GameTile {
     public InvTile(int riadok, int stlpec, Hrac hrac, Predmet predmet) {
         super(riadok, stlpec, new TileButton("inv"), hrac);
         this.predmetVTile = predmet;
+
+    }
+
+    public void setZobrazeniePoctu(String pocet) {
+        super.getTlacitko().updateTextButtonu(pocet);
     }
 
     public void setPredmet(Predmet predmet) {
@@ -21,8 +26,13 @@ public class InvTile extends GameTile {
     }
 
     @Override
-    public void onClick() {
-        super.onClick();
+    public void onClickLeft() {
+        super.onClickRight();
+    }
+
+    @Override
+    public void onClickRight() {
+        super.onClickLeft();
     }
 
     @Override

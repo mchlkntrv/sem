@@ -46,8 +46,13 @@ public class Mapa {
         mapa.setLayout(new GridLayout(7, 8));
         for (int r = 0; r < 7; r++) {
             for (int s = 0; s < 8; s++) {
-                this.policka[(r + 1) * 8 + s] = new GrassTile(r + 1, s + 1, hrac);
-                mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
+                if ((r == 1 || r == 2) && (s == 1 || s == 2)) {
+                    this.policka[(r + 1) * 8 + s] = new WaterTile(r + 1, s + 1, hrac);
+                    mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
+                } else {
+                    this.policka[(r + 1) * 8 + s] = new GrassTile(r + 1, s + 1, hrac);
+                    mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
+                }
             }
         }
 
@@ -57,15 +62,6 @@ public class Mapa {
         invAMapa.add(mapa, BorderLayout.CENTER);
 
         frame.add(invAMapa, BorderLayout.CENTER);
-
-//        frame.setLayout(new GridLayout(1, 3));
-//        WaterTile tile1 = new WaterTile(1, 1, hrac);
-//        GrassTile tile2 = new GrassTile(1, 2, hrac);
-//        InvTile tile3 = new InvTile(1, 3, hrac, null);
-//
-//        frame.add(tile1.getTlacitko());
-//        frame.add(tile2.getTlacitko());
-//        frame.add(tile3.getTlacitko());
 
         frame.pack();
         frame.setVisible(true);

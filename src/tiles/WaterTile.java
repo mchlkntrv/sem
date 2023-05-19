@@ -9,8 +9,12 @@ public class WaterTile extends GameTile {
     }
 
     @Override
-    public void onClick() {
-        super.onClick();
+    public void onClickLeft() {
+        super.onClickLeft();
+    }
+    @Override
+    public void onClickRight() {
+        super.onClickRight();
     }
 
     @Override

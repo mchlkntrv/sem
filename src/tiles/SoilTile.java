@@ -3,8 +3,8 @@ import hra.Hrac;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
-public class GrassTile extends GameTile {
-    public GrassTile(int riadok, int stlpec, Hrac hrac) {
+public class SoilTile extends GameTile {
+    public SoilTile(int riadok, int stlpec, Hrac hrac) {
         super(riadok, stlpec, new TileButton("trava"), hrac);
     }
 
@@ -21,13 +21,9 @@ public class GrassTile extends GameTile {
     public JPopupMenu createPopupMenu() {
         JPopupMenu moznostiKliknutia = new JPopupMenu();
 
-        JMenuItem moznost1 = new JMenuItem("Poryluj");
+        JMenuItem moznost1 = new JMenuItem("Zalej");
         moznost1.addActionListener(e -> System.out.println("abcd"));
         moznostiKliknutia.add(moznost1);
-
-        JMenuItem moznost2 = new JMenuItem("Lahni si do travicky.");
-        moznost2.addActionListener(e -> System.out.println("abcd"));
-        moznostiKliknutia.add(moznost2);
 
         return moznostiKliknutia;
     }
