@@ -29,7 +29,7 @@ public class InvTile extends GameTile {
     public JPopupMenu createPopupMenu() {
         JPopupMenu moznostiKliknutia = new JPopupMenu();
 
-        JMenuItem moznost1 = new JMenuItem("Naber vodu.");
+        JMenuItem moznost1 = new JMenuItem("Predaj");
         moznost1.addActionListener(e -> System.out.println(super.getHrac().getMeno()));
         moznostiKliknutia.add(moznost1);
 
