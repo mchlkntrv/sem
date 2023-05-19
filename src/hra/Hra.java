@@ -1,6 +1,6 @@
 package hra;
 
-import javax.swing.*;
+import itemy.*;
 
 public class Hra {
     private Hrac hrac;
@@ -8,6 +8,7 @@ public class Hra {
     public Hra() {
         this.hrac = new Hrac("Michaela");
         this.mapa = new Mapa(this.hrac);
-
+        this.hrac.getInventar().setListener(this.mapa);
+        this.hrac.pridajPredmetDoInv(new Predmet("krhlaempty"));
     }
 }

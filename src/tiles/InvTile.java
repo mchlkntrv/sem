@@ -1,14 +1,14 @@
 package tiles;
 import hra.Hrac;
+import hra.Mapa;
 import itemy.Predmet;
-
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 public class InvTile extends GameTile {
     private Predmet predmetVTile;
-    public InvTile(int riadok, int stlpec, Hrac hrac, Predmet predmet) {
-        super(riadok, stlpec, new TileButton("inv"), hrac);
+    public InvTile(Mapa mapa, int riadok, int stlpec, Hrac hrac, Predmet predmet) {
+        super(mapa, riadok, stlpec, new TileButton("inv"), hrac);
         this.predmetVTile = predmet;
 
     }

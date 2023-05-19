@@ -19,4 +19,13 @@ public class Hrac {
     public int getPeniaze() {
         return this.peniaze;
     }
+
+    public Inventar getInventar() {
+        return this.inventarHraca;
+    }
+
+    public void pridajPredmetDoInv(Predmet predmet) {
+        this.inventarHraca.addPredmet(predmet);
+
+    }
 }

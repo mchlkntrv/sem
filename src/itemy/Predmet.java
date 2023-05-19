@@ -4,7 +4,7 @@ public class Predmet {
     private boolean jeAktivny;
     private String nazov;
 
-    public Predmet() {
+    public Predmet(String nazov) {
         this.jeAktivny = false;
     }
 

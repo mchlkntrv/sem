@@ -1,17 +1,30 @@
 package hra;
-import tiles.*;
+import itemy.*;
+import tiles.GameTile;
+import tiles.GrassTile;
+import tiles.InvTile;
+import tiles.WaterTile;
+
 import javax.swing.*;
-import java.awt.*;
-public class Mapa {
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.FlowLayout;
+import java.awt.GridLayout;
+import java.awt.Image;
+import java.util.*;
+
+public class Mapa implements InvPocuvac {
     private GameTile[] policka;
     private int den;
-    public Mapa(Hrac hrac) {
-        JFrame frame = new JFrame();
-        frame.setLayout(new BorderLayout());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setTitle("Farmovanie");
+    private Inventar inventar;
+    private JFrame frame;
 
+    public Mapa(Hrac hrac) {
+        this.frame = new JFrame();
+        this.frame.setLayout(new BorderLayout());
+        this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.frame.setResizable(false);
+        this.frame.setTitle("Farmovanie");
 
         this.policka = new GameTile[64];
         this.den = 1;
@@ -31,14 +44,14 @@ public class Mapa {
         info.add(coin);
 
         info.setBackground(Color.lightGray);
-        frame.add(info, BorderLayout.NORTH);
+        this.frame.add(info, BorderLayout.NORTH);
 
-        JPanel inventar = new JPanel();
-        inventar.setLayout(new GridLayout(1, 8));
+        JPanel inventarPanel = new JPanel();
+        inventarPanel.setLayout(new GridLayout(1, 8));
         for (int r = 0; r < 1; r++) {
             for (int s = 0; s < 8; s++) {
-                this.policka[s] = new InvTile(r + 1, s + 1, hrac, null);
-                inventar.add(this.policka[s].getTlacitko());
+                this.policka[s] = new InvTile(this, r + 1, s + 1, hrac, hrac.getPeniaze().);
+                inventarPanel.add(this.policka[s].getTlacitko());
             }
         }
 
@@ -47,10 +60,10 @@ public class Mapa {
         for (int r = 0; r < 7; r++) {
             for (int s = 0; s < 8; s++) {
                 if ((r == 1 || r == 2) && (s == 1 || s == 2)) {
-                    this.policka[(r + 1) * 8 + s] = new WaterTile(r + 1, s + 1, hrac);
+                    this.policka[(r + 1) * 8 + s] = new WaterTile(this, r + 1, s + 1, hrac);
                     mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
                 } else {
-                    this.policka[(r + 1) * 8 + s] = new GrassTile(r + 1, s + 1, hrac);
+                    this.policka[(r + 1) * 8 + s] = new GrassTile(this, r + 1, s + 1, hrac);
                     mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
                 }
             }
@@ -58,12 +71,29 @@ public class Mapa {
 
         JPanel invAMapa = new JPanel();
         invAMapa.setLayout(new BorderLayout());
-        invAMapa.add(inventar, BorderLayout.NORTH);
+        invAMapa.add(inventarPanel, BorderLayout.NORTH);
         invAMapa.add(mapa, BorderLayout.CENTER);
 
-        frame.add(invAMapa, BorderLayout.CENTER);
+        this.frame.add(invAMapa, BorderLayout.CENTER);
 
-        frame.pack();
-        frame.setVisible(true);
+        this.frame.pack();
+        this.frame.setVisible(true);
+
+
+
+        this.inventar = hrac.getInventar();
+        this.inventar.setListener(new InvPocuvac() {
+            @Override
+            public void zmenaInv(Inventar inv) {
+                if (!inv.jeMiesto()) {
+                    JOptionPane.showMessageDialog(Mapa.this.frame, "Inventory is full!", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+    }
+
+    @Override
+    public void zmenaInv(Inventar inv) {
+
     }
 }

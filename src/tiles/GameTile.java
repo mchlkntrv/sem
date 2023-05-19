@@ -1,9 +1,11 @@
 package tiles;
-import hra.*;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import hra.Hrac;
+import hra.Mapa;
+import javax.swing.BorderFactory;
+import javax.swing.JPopupMenu;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public abstract class GameTile implements Clickable {
     private TileButton tlacitko;
@@ -12,7 +14,7 @@ public abstract class GameTile implements Clickable {
     private final JPopupMenu moznostiKliknutia;
     private Hrac hrac;
 
-    public GameTile(int riadok, int stlpec, TileButton tlacitko, Hrac hrac) {
+    public GameTile(Mapa mapa, int riadok, int stlpec, TileButton tlacitko, Hrac hrac) {
         this.tlacitko = tlacitko;
         this.nastavMouseListener();
         this.moznostiKliknutia = this.createPopupMenu();
