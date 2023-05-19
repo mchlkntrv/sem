@@ -5,12 +5,12 @@ import javax.swing.JPopupMenu;
 
 public class GrassTile extends GameTile {
     public GrassTile(int riadok, int stlpec, Hrac hrac) {
-        super("trava", riadok, stlpec, new TileButton("trava"), hrac);
+        super(riadok, stlpec, new TileButton("trava"), hrac);
     }
 
     @Override
     public void onClick() {
-        System.out.println("trava");
+        super.onClick();
     }
 
     @Override

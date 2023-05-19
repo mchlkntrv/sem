@@ -5,12 +5,12 @@ import javax.swing.JPopupMenu;
 
 public class WaterTile extends GameTile {
     public WaterTile(int riadok, int stlpec, Hrac hrac) {
-        super("voda", riadok, stlpec, new TileButton("voda"), hrac);
+        super(riadok, stlpec, new TileButton("voda"), hrac);
     }
 
     @Override
     public void onClick() {
-        System.out.println("voda");
+        super.onClick();
     }
 
     @Override

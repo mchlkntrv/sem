@@ -12,13 +12,11 @@ public abstract class GameTile implements Clickable {
     private final JPopupMenu moznostiKliknutia;
     private Hrac hrac;
 
-    public GameTile(String nazov, int riadok, int stlpec, TileButton tlacitko, Hrac hrac) {
+    public GameTile(int riadok, int stlpec, TileButton tlacitko, Hrac hrac) {
         this.tlacitko = tlacitko;
         this.nastavMouseListener();
-        this.tlacitko.addActionListener(e -> this.onClick());
-
         this.moznostiKliknutia = this.createPopupMenu();
-        this.tlacitko.addActionListener(e -> this.moznostiKliknutia.show(tlacitko, 40, 40));
+        this.tlacitko.addActionListener(e -> this.onClick());
 
         this.riadok = riadok;
         this.stlpec = stlpec;
@@ -29,8 +27,12 @@ public abstract class GameTile implements Clickable {
     public TileButton getTlacitko() {
         return this.tlacitko;
     }
+
     @Override
-    public abstract void onClick();
+    public void onClick() {
+        this.moznostiKliknutia.show(this.tlacitko, 40, 40);
+        System.out.println(this.tlacitko.getNazovObrazku());
+    }
 
     public abstract JPopupMenu createPopupMenu();
 

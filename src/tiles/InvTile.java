@@ -7,14 +7,22 @@ import javax.swing.JPopupMenu;
 
 public class InvTile extends GameTile {
     private Predmet predmetVTile;
-    public InvTile(int riadok, int stlpec, Hrac hrac) {
-        super("inv", riadok, stlpec, new TileButton("inv"), hrac);
-        this.predmetVTile = null;
+    public InvTile(int riadok, int stlpec, Hrac hrac, Predmet predmet) {
+        super(riadok, stlpec, new TileButton("inv"), hrac);
+        this.predmetVTile = predmet;
+    }
+
+    public void setPredmet(Predmet predmet) {
+        this.predmetVTile = predmet;
+    }
+
+    public Predmet getPredmet() {
+        return this.predmetVTile;
     }
 
     @Override
     public void onClick() {
-        System.out.println("voda");
+        super.onClick();
     }
 
     @Override
