@@ -47,12 +47,6 @@ public class GrassTile extends GameTile {
 
                         SoilTile newTile = new SoilTile(riadok, stlpec);
 
-//                        Mapa.getPolicka()[i] = newTile;
-//                        JButton tlacitko = getTlacitko();
-//                        tlacitko.setIcon(new ImageIcon("Assets/rylovane.png"));
-//                        tlacitko.revalidate();
-//                        tlacitko.repaint();
-
                         Mapa.getInstance().setPolicko(newTile, i);
                         Mapa.getInstance().getMapa().add(newTile.getTlacitko(), i - 8);
                         Mapa.getInstance().setTerminalText("Porýľoval si pôdu! Ešte ju musíš zaliať.");

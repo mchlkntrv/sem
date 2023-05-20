@@ -9,4 +9,15 @@ public abstract class Naradie implements Predmet {
         this.cena = cena;
         this.durability = durability;
     }
+
+    @Override
+    public String getNazov() {
+        return nazov;
+    }
+
+    @Override
+    public int getCena() {
+        return cena;
+    }
+
 }

@@ -1,8 +1,5 @@
 package hra;
-import tiles.GameTile;
-import tiles.GrassTile;
-import tiles.InvTile;
-import tiles.WaterTile;
+import tiles.*;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -53,6 +50,9 @@ public class Mapa {
         this.info.add(terminalLabel);
         this.info.setBackground(Color.lightGray);
 
+        TlacitkoSpanie spanie = new TlacitkoSpanie();
+        this.info.add(spanie);
+
         this.frame.add(this.info, BorderLayout.NORTH);
 
         JPanel inventarPanel = new JPanel();
@@ -88,7 +88,6 @@ public class Mapa {
         this.policka[0] = policko;
 
 
-
         JPanel invAMapa = new JPanel();
         invAMapa.setLayout(new BorderLayout());
         invAMapa.add(inventarPanel, BorderLayout.NORTH);
@@ -120,17 +119,21 @@ public class Mapa {
         this.policka[index] = policko;
     }
 
-    public JFrame getFrame() {
-        return this.frame;
-    }
+//    public JFrame getFrame() {
+//        return this.frame;
+//    }
 
     public JPanel getMapa() {
         return this.mapa;
     }
 
+    public JPanel getInfo() {
+        return this.info;
+    }
+
     public void setTerminalText(String text) {
         this.info.remove(3);
-        this.info.add(new JLabel(text));
+        this.info.add(new JLabel(text), 3);
         this.info.repaint();
         this.info.revalidate();
     }

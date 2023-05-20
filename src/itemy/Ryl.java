@@ -5,6 +5,8 @@ public class Ryl extends Naradie {
         super("ryl", 80, 5);
     }
 
+
+
     @Override
     public String getNazov() {
         return "ryl";

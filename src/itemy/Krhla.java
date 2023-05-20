@@ -25,7 +25,6 @@ public class Krhla extends Naradie {
             if (tile instanceof InvTile) {
                 InvTile invTile = (InvTile)tile;
                 if (invTile.getPredmet() == Hrac.getInstance().getInventar().getAktivnyPredmet()) {
-                    String mnozstvo = String.valueOf(this.mnozstvoVody);
                     String text = this.getNazov();
                     invTile.getTlacitko().setOverlayTlacitka("1", text);
                 }
