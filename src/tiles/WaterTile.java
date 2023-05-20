@@ -7,8 +7,8 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 public class WaterTile extends GameTile {
-    public WaterTile(Mapa mapa, int riadok, int stlpec) {
-        super(mapa, riadok, stlpec, new TileButton("voda"));
+    public WaterTile(int riadok, int stlpec) {
+        super(riadok, stlpec, new TileButton("voda"));
     }
 
     @Override
@@ -28,6 +28,17 @@ public class WaterTile extends GameTile {
         moznost1.addActionListener(e -> {
             if (Hrac.getInventar().getAktivnyPredmet() instanceof Krhla) {
                 ((Krhla)Hrac.getInventar().getAktivnyPredmet()).naplnKrhlu();
+
+                for (GameTile tile : Mapa.getPolicka()) {
+                    if (tile instanceof InvTile) {
+                        InvTile invTile = (InvTile)tile;
+                        if (invTile.getPredmet() == Hrac.getInventar().getAktivnyPredmet()) {
+                            ((Krhla)Hrac.getInventar().getAktivnyPredmet()).naplnKrhlu();
+                            invTile.getTlacitko().setOverlayTlacitka("1", "krhlafull");
+                        }
+                    }
+                }
+
             }
         });
         moznostiKliknutia.add(moznost1);

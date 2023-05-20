@@ -12,8 +12,8 @@ import java.util.Optional;
 
 public class InvTile extends GameTile {
     private Predmet predmetVTile;
-    public InvTile(Mapa mapa, int riadok, int stlpec, Predmet predmet) {
-        super(mapa, riadok, stlpec, new TileButton("inv"));
+    public InvTile(int riadok, int stlpec, Predmet predmet) {
+        super(riadok, stlpec, new TileButton("inv"));
         this.predmetVTile = predmet;
 
         Optional<Predmet> optionalPredmet = Optional.ofNullable(predmet);

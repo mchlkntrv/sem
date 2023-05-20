@@ -1,5 +1,4 @@
 package hra;
-import itemy.Inventar;
 import tiles.GameTile;
 import tiles.GrassTile;
 import tiles.InvTile;
@@ -13,14 +12,15 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.util.*;
 
 public class Mapa {
-    private GameTile[] policka;
+    private static Mapa instanceMapa;
+    private static GameTile[] policka;
     private int den;
-    private Inventar inventar;
     private JFrame frame;
 
-    public Mapa(Hrac hrac) {
+    private Mapa() {
         this.frame = new JFrame();
         this.frame.setLayout(new BorderLayout());
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -36,7 +36,7 @@ public class Mapa {
         denLabel.setText("Deň: " + this.den);
         info.add(denLabel);
         JLabel peniazeLabel = new JLabel();
-        peniazeLabel.setText("Peniaze: " + hrac.getPeniaze());
+        peniazeLabel.setText("Peniaze: " + Hrac.getPeniaze());
         info.add(peniazeLabel);
 
         JLabel coin = new JLabel();
@@ -52,9 +52,9 @@ public class Mapa {
         for (int r = 0; r < 1; r++) {
             for (int s = 0; s < 8; s++) {
                 if (Hrac.getInventar().getPredmet(s) != null) {
-                    this.policka[s] = new InvTile(this, r + 1, s + 1, Hrac.getInventar().getPredmet(s));
+                    this.policka[s] = new InvTile( r + 1, s + 1, Hrac.getInventar().getPredmet(s));
                 } else {
-                    this.policka[s] = new InvTile(this, r + 1, s + 1, null);
+                    this.policka[s] = new InvTile( r + 1, s + 1, null);
                 }
                 inventarPanel.add(this.policka[s].getTlacitko());
             }
@@ -66,10 +66,10 @@ public class Mapa {
         for (int r = 0; r < 7; r++) {
             for (int s = 0; s < 8; s++) {
                 if ((r == 1 || r == 2) && (s == 1 || s == 2)) {
-                    this.policka[(r + 1) * 8 + s] = new WaterTile(this, r + 1, s + 1);
+                    this.policka[(r + 1) * 8 + s] = new WaterTile(r + 1, s + 1);
                     mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
                 } else {
-                    this.policka[(r + 1) * 8 + s] = new GrassTile(this, r + 1, s + 1);
+                    this.policka[(r + 1) * 8 + s] = new GrassTile(r + 1, s + 1);
                     mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
                 }
             }
@@ -91,8 +91,21 @@ public class Mapa {
         this.frame.pack();
         this.frame.setVisible(true);
 
+    }
 
+    public static Mapa getInstance() {
+        if (Mapa.instanceMapa == null) {
+            Mapa.instanceMapa = new Mapa();
+        }
+        return Mapa.instanceMapa;
+    }
 
+    public static GameTile[] getPolicka() {
+        return Arrays.copyOf(policka, policka.length);
+    }
 
+    public static void setPolicka(GameTile[] polickaPrepis) {
+        System.arraycopy(polickaPrepis, 0, policka, 0, policka.length);
+//        policka = polickaPrepis;
     }
 }

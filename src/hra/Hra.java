@@ -1,6 +1,6 @@
 package hra;
 
-import itemy.Krhla;
+import itemy.*;
 
 public class Hra {
     private Hrac hrac;
@@ -9,7 +9,8 @@ public class Hra {
         this.hrac = Hrac.getInstance("Michaela");
         this.hrac.pridajPredmetDoInv(new Krhla());
         this.hrac.pridajPredmetDoInv(new Krhla());
+        this.hrac.pridajPredmetDoInv(new Ryl());
 
-        this.mapa = new Mapa(this.hrac);
+        this.mapa = Mapa.getInstance();
     }
 }

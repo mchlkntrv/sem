@@ -13,14 +13,13 @@ public abstract class GameTile implements Clickable {
     private int stlpec;
     private final JPopupMenu moznostiKliknutia;
 
-    public GameTile(Mapa mapa, int riadok, int stlpec, TileButton tlacitko) {
+    public GameTile(int riadok, int stlpec, TileButton tlacitko) {
         this.tlacitko = tlacitko;
         this.nastavMouseListener();
         this.moznostiKliknutia = this.createPopupMenu();
 
         this.riadok = riadok;
         this.stlpec = stlpec;
-
     }
 
     public TileButton getTlacitko() {
@@ -37,11 +36,6 @@ public abstract class GameTile implements Clickable {
     }
 
     public abstract JPopupMenu createPopupMenu();
-
-//    public Hrac getHrac() {
-//        return this.hrac;
-//    }
-
 
     public void nastavMouseListener() {
         this.tlacitko.setBorderPainted(false);
@@ -67,5 +61,15 @@ public abstract class GameTile implements Clickable {
                     }
                 }
         );
+    }
+
+    @Override
+    public int getRiadok() {
+        return this.riadok;
+    }
+
+    @Override
+    public int getStlpec() {
+        return this.stlpec;
     }
 }

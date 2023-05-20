@@ -9,9 +9,9 @@ public class Hrac {
     private static Inventar inventarHraca;
     private static int peniaze;
 
-    private Hrac(String meno) {
-        this.peniaze = 50;
-        this.meno = meno;
+    private Hrac(String menoH) {
+        peniaze = 50;
+        meno = menoH;
         inventarHraca = new Inventar();
     }
 
@@ -26,8 +26,8 @@ public class Hrac {
         return meno;
     }
 
-    public int getPeniaze() {
-        return this.peniaze;
+    public static int getPeniaze() {
+        return peniaze;
     }
 
     public static Inventar getInventar() {

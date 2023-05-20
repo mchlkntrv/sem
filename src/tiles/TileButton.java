@@ -10,9 +10,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 
 public class TileButton extends JButton {
+    private JLayeredPane layeredPaneField;
     private String nazovObrazku;
     private JLabel textButtonu;
     public TileButton(String nazovObrazku) {
+        this.layeredPaneField = new JLayeredPane();
         this.nazovObrazku = nazovObrazku;
         this.setPreferredSize(new Dimension(80, 80));
         Icon obrazokTlacitka = new ImageIcon("Assets\\" + nazovObrazku + ".png");
@@ -28,6 +30,7 @@ public class TileButton extends JButton {
 
 
     public void setOverlayTlacitka(String text, String nazovOverlayObr) {
+        this.layeredPaneField.removeAll();
         JLabel obrazokOverlay = new JLabel();
         ImageIcon imageOverlayIcon = new ImageIcon("Assets\\" + nazovOverlayObr + ".png");
         obrazokOverlay.setIcon(imageOverlayIcon);
@@ -50,6 +53,8 @@ public class TileButton extends JButton {
 
         this.setLayout(new BorderLayout());
         this.add(layeredPane, BorderLayout.CENTER);
+
+        this.layeredPaneField = layeredPane;
     }
 
     public String getNazovObrazku() {

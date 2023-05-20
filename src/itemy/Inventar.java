@@ -38,9 +38,6 @@ public class Inventar {
         }
     }
 
-
-
-
     public boolean jeMiesto() {
         for (Predmet predmet : this.predmetyInv) {
             if (predmet == null) {
@@ -49,6 +46,4 @@ public class Inventar {
         }
         return false;
     }
-
-
 }
