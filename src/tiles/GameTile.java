@@ -1,7 +1,5 @@
 package tiles;
-import hra.Hrac;
 import hra.Mapa;
-import itemy.*;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPopupMenu;
@@ -14,9 +12,8 @@ public abstract class GameTile implements Clickable {
     private int riadok;
     private int stlpec;
     private final JPopupMenu moznostiKliknutia;
-    private Hrac hrac;
 
-    public GameTile(Mapa mapa, int riadok, int stlpec, TileButton tlacitko, Hrac hrac) {
+    public GameTile(Mapa mapa, int riadok, int stlpec, TileButton tlacitko) {
         this.tlacitko = tlacitko;
         this.nastavMouseListener();
         this.moznostiKliknutia = this.createPopupMenu();
@@ -24,7 +21,6 @@ public abstract class GameTile implements Clickable {
         this.riadok = riadok;
         this.stlpec = stlpec;
 
-        this.hrac = hrac;
     }
 
     public TileButton getTlacitko() {
@@ -42,9 +38,9 @@ public abstract class GameTile implements Clickable {
 
     public abstract JPopupMenu createPopupMenu();
 
-    public Hrac getHrac() {
-        return this.hrac;
-    }
+//    public Hrac getHrac() {
+//        return this.hrac;
+//    }
 
 
     public void nastavMouseListener() {

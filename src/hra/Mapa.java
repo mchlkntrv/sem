@@ -1,24 +1,26 @@
 package hra;
-import itemy.*;
+import itemy.Inventar;
 import tiles.GameTile;
 import tiles.GrassTile;
 import tiles.InvTile;
 import tiles.WaterTile;
-
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 
-public class Mapa implements InvPocuvac {
+public class Mapa {
     private GameTile[] policka;
     private int den;
     private Inventar inventar;
     private JFrame frame;
 
-    public Mapa() {
+    public Mapa(Hrac hrac) {
         this.frame = new JFrame();
         this.frame.setLayout(new BorderLayout());
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -34,7 +36,7 @@ public class Mapa implements InvPocuvac {
         denLabel.setText("Deň: " + this.den);
         info.add(denLabel);
         JLabel peniazeLabel = new JLabel();
-        peniazeLabel.setText("Peniaze: " + Hrac.static());
+        peniazeLabel.setText("Peniaze: " + hrac.getPeniaze());
         info.add(peniazeLabel);
 
         JLabel coin = new JLabel();
@@ -49,10 +51,10 @@ public class Mapa implements InvPocuvac {
         inventarPanel.setLayout(new GridLayout(1, 8));
         for (int r = 0; r < 1; r++) {
             for (int s = 0; s < 8; s++) {
-                if (hrac.getInventar().getPredmet(s) != null) {
-                    this.policka[s] = new InvTile(this, r + 1, s + 1, hrac, hrac.getInventar().getPredmet(s));
+                if (Hrac.getInventar().getPredmet(s) != null) {
+                    this.policka[s] = new InvTile(this, r + 1, s + 1, Hrac.getInventar().getPredmet(s));
                 } else {
-                    this.policka[s] = new InvTile(this, r + 1, s + 1, hrac, null);
+                    this.policka[s] = new InvTile(this, r + 1, s + 1, null);
                 }
                 inventarPanel.add(this.policka[s].getTlacitko());
             }
@@ -64,17 +66,17 @@ public class Mapa implements InvPocuvac {
         for (int r = 0; r < 7; r++) {
             for (int s = 0; s < 8; s++) {
                 if ((r == 1 || r == 2) && (s == 1 || s == 2)) {
-                    this.policka[(r + 1) * 8 + s] = new WaterTile(this, r + 1, s + 1, hrac);
+                    this.policka[(r + 1) * 8 + s] = new WaterTile(this, r + 1, s + 1);
                     mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
                 } else {
-                    this.policka[(r + 1) * 8 + s] = new GrassTile(this, r + 1, s + 1, hrac);
+                    this.policka[(r + 1) * 8 + s] = new GrassTile(this, r + 1, s + 1);
                     mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
                 }
             }
         }
 
         InvTile policko = (InvTile)this.policka[0];
-        policko.setPredmet(hrac.getInventar().getPredmet(0));
+        policko.setPredmet(Hrac.getInventar().getPredmet(0));
         this.policka[0] = policko;
 
 
@@ -91,12 +93,6 @@ public class Mapa implements InvPocuvac {
 
 
 
-        this.inventar = hrac.getInventar();
-
-    }
-
-    @Override
-    public void zmenaInv(Inventar inv) {
 
     }
 }

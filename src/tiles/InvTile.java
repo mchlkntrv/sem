@@ -2,16 +2,18 @@ package tiles;
 import hra.Hrac;
 import hra.Mapa;
 import itemy.Predmet;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.util.*;
+import javax.swing.BorderFactory;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import java.awt.Color;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.Optional;
 
 public class InvTile extends GameTile {
     private Predmet predmetVTile;
-    public InvTile(Mapa mapa, int riadok, int stlpec, Hrac hrac, Predmet predmet) {
-        super(mapa, riadok, stlpec, new TileButton("inv"), hrac);
+    public InvTile(Mapa mapa, int riadok, int stlpec, Predmet predmet) {
+        super(mapa, riadok, stlpec, new TileButton("inv"));
         this.predmetVTile = predmet;
 
         Optional<Predmet> optionalPredmet = Optional.ofNullable(predmet);
@@ -42,11 +44,12 @@ public class InvTile extends GameTile {
 
     @Override
     public void onClickLeft() {
-        if (super.getHrac().getInventar().getAktivnyPredmet() != this.predmetVTile) {
-            super.getHrac().getInventar().setAktivnyPredmet(this.predmetVTile);
+        if (Hrac.getInventar().getAktivnyPredmet() != this.predmetVTile) {
+            Hrac.getInventar().setAktivnyPredmet((this.predmetVTile));
             super.getTlacitko().setBorderPainted(true);
         } else {
             super.getTlacitko().setBorderPainted(false);
+            Hrac.getInventar().setAktivnyPredmet(null);
         }
     }
 
@@ -60,7 +63,7 @@ public class InvTile extends GameTile {
         JPopupMenu moznostiKliknutia = new JPopupMenu();
 
         JMenuItem moznost1 = new JMenuItem("Predaj");
-        moznost1.addActionListener(e -> System.out.println(super.getHrac().getMeno()));
+        moznost1.addActionListener(e -> System.out.println(Hrac.getMeno()));
         moznostiKliknutia.add(moznost1);
 
         return moznostiKliknutia;
@@ -87,7 +90,7 @@ public class InvTile extends GameTile {
                     }
                     @Override
                     public void mouseExited(MouseEvent e) {
-                        if (Hrac.StaticHrac != InvTile.super. {
+                        if (Hrac.getInventar().getAktivnyPredmet() != InvTile.this.predmetVTile || InvTile.this.predmetVTile == null ) {
                             InvTile.super.getTlacitko().setBorderPainted(false);
                         }
                     }

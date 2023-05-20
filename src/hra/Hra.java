@@ -1,14 +1,15 @@
 package hra;
 
-import itemy.*;
+import itemy.Krhla;
 
 public class Hra {
+    private Hrac hrac;
     private Mapa mapa;
     public Hra() {
-        Hrac.StaticHrac staticHrac = new Hrac.StaticHrac("Michaela");
-        staticHrac.pridajPredmetDoInv(new Krhla());
-        staticHrac.pridajPredmetDoInv(new Krhla());
-        staticHrac.getInventar().setListener(this.mapa);
+        this.hrac = Hrac.getInstance("Michaela");
+        this.hrac.pridajPredmetDoInv(new Krhla());
+        this.hrac.pridajPredmetDoInv(new Krhla());
 
+        this.mapa = new Mapa(this.hrac);
     }
 }

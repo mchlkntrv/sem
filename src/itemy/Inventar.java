@@ -1,10 +1,9 @@
 package itemy;
-import java.util.*;
+import java.util.Arrays;
 
-public class Inventar implements InvPocuvac {
+public class Inventar {
     private Predmet[] predmetyInv;
     private Predmet aktivnyPredmet;
-    private InvPocuvac pocuvac;
 
     public Inventar() {
         this.predmetyInv = new Predmet[8];
@@ -36,19 +35,11 @@ public class Inventar implements InvPocuvac {
                     break;
                 }
             }
-            this.upozorniPocuvac();
         }
     }
 
-    public void upozorniPocuvac() {
-        if (this.pocuvac != null) {
-            this.pocuvac.zmenaInv(this);
-        }
-    }
 
-    public void setListener(InvPocuvac pocuvac) {
-        this.pocuvac = pocuvac;
-    }
+
 
     public boolean jeMiesto() {
         for (Predmet predmet : this.predmetyInv) {
@@ -59,7 +50,5 @@ public class Inventar implements InvPocuvac {
         return false;
     }
 
-    @Override
-    public void zmenaInv(Inventar inv) {
-    }
+
 }

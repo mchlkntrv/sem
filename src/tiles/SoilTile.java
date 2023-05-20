@@ -1,12 +1,11 @@
 package tiles;
-import hra.Hrac;
 import hra.Mapa;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 
 public class SoilTile extends GameTile {
-    public SoilTile(Mapa mapa, int riadok, int stlpec, Hrac hrac) {
-        super(mapa, riadok, stlpec, new TileButton("trava"), hrac);
+    public SoilTile(Mapa mapa, int riadok, int stlpec) {
+        super(mapa, riadok, stlpec, new TileButton("trava"));
     }
 
     @Override

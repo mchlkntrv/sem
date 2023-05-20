@@ -4,7 +4,7 @@ public class Krhla extends Naradie {
     private int mnozstvoVody;
     private final int pocet = 1;
     public Krhla() {
-        super("emptykrhla", 50, 3);
+        super("krhlaempty", 50, 3);
         this.mnozstvoVody = 0;
     }
 
