@@ -5,36 +5,30 @@ import itemy.Predmet;
 
 public class Hrac {
     private static Hrac instanceHrac;
-    private static String meno;
-    private static Inventar inventarHraca;
-    private static int peniaze;
+    private Inventar inventarHraca;
+    private int peniaze;
 
-    private Hrac(String menoH) {
-        peniaze = 50;
-        meno = menoH;
-        inventarHraca = new Inventar();
+    private Hrac() {
+        this.peniaze = 50;
+        this.inventarHraca = new Inventar();
     }
 
-    public static Hrac getInstance(String meno) {
+    public static Hrac getInstance() {
         if (Hrac.instanceHrac == null) {
-            Hrac.instanceHrac = new Hrac(meno);
+            Hrac.instanceHrac = new Hrac();
         }
         return Hrac.instanceHrac;
     }
 
-    public static String getMeno() {
-        return meno;
+    public int getPeniaze() {
+        return this.peniaze;
     }
 
-    public static int getPeniaze() {
-        return peniaze;
-    }
-
-    public static Inventar getInventar() {
-        return inventarHraca;
+    public Inventar getInventar() {
+        return this.inventarHraca;
     }
 
     public void pridajPredmetDoInv(Predmet predmet) {
-        inventarHraca.addPredmet(predmet);
+        this.inventarHraca.addPredmet(predmet);
     }
 }

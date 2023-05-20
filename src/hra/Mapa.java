@@ -3,6 +3,7 @@ import tiles.GameTile;
 import tiles.GrassTile;
 import tiles.InvTile;
 import tiles.WaterTile;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -12,11 +13,12 @@ import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
-import java.util.*;
 
 public class Mapa {
     private static Mapa instanceMapa;
-    private static GameTile[] policka;
+    private GameTile[] policka;
+    private JPanel mapa;
+    private JPanel info;
     private int den;
     private JFrame frame;
 
@@ -30,29 +32,35 @@ public class Mapa {
         this.policka = new GameTile[64];
         this.den = 1;
 
-        JPanel info = new JPanel();
-        info.setLayout(new FlowLayout(FlowLayout.LEFT));
+        this.info = new JPanel();
+        this.info.setLayout(new FlowLayout(FlowLayout.LEFT));
+
         JLabel denLabel = new JLabel();
         denLabel.setText("Deň: " + this.den);
-        info.add(denLabel);
+        this.info.add(denLabel);
+
         JLabel peniazeLabel = new JLabel();
-        peniazeLabel.setText("Peniaze: " + Hrac.getPeniaze());
-        info.add(peniazeLabel);
+        peniazeLabel.setText("Peniaze: " + Hrac.getInstance().getPeniaze());
+        this.info.add(peniazeLabel);
 
         JLabel coin = new JLabel();
         ImageIcon imageIcon = new ImageIcon(new ImageIcon("Assets\\coin.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         coin.setIcon(imageIcon);
-        info.add(coin);
+        this.info.add(coin);
 
-        info.setBackground(Color.lightGray);
-        this.frame.add(info, BorderLayout.NORTH);
+        JLabel terminalLabel = new JLabel();
+        terminalLabel.setText("Terminal");
+        this.info.add(terminalLabel);
+        this.info.setBackground(Color.lightGray);
+
+        this.frame.add(this.info, BorderLayout.NORTH);
 
         JPanel inventarPanel = new JPanel();
         inventarPanel.setLayout(new GridLayout(1, 8));
         for (int r = 0; r < 1; r++) {
             for (int s = 0; s < 8; s++) {
-                if (Hrac.getInventar().getPredmet(s) != null) {
-                    this.policka[s] = new InvTile( r + 1, s + 1, Hrac.getInventar().getPredmet(s));
+                if (Hrac.getInstance().getInventar().getPredmet(s) != null) {
+                    this.policka[s] = new InvTile( r + 1, s + 1, Hrac.getInstance().getInventar().getPredmet(s));
                 } else {
                     this.policka[s] = new InvTile( r + 1, s + 1, null);
                 }
@@ -60,23 +68,23 @@ public class Mapa {
             }
         }
 
+        this.mapa = new JPanel();
 
-        JPanel mapa = new JPanel();
-        mapa.setLayout(new GridLayout(7, 8));
+        this.mapa.setLayout(new GridLayout(7, 8));
         for (int r = 0; r < 7; r++) {
             for (int s = 0; s < 8; s++) {
                 if ((r == 1 || r == 2) && (s == 1 || s == 2)) {
                     this.policka[(r + 1) * 8 + s] = new WaterTile(r + 1, s + 1);
-                    mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
+                    this.mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
                 } else {
                     this.policka[(r + 1) * 8 + s] = new GrassTile(r + 1, s + 1);
-                    mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
+                    this.mapa.add(this.policka[(r + 1) * 8 + s].getTlacitko());
                 }
             }
         }
 
         InvTile policko = (InvTile)this.policka[0];
-        policko.setPredmet(Hrac.getInventar().getPredmet(0));
+        policko.setPredmet(Hrac.getInstance().getInventar().getPredmet(0));
         this.policka[0] = policko;
 
 
@@ -84,7 +92,7 @@ public class Mapa {
         JPanel invAMapa = new JPanel();
         invAMapa.setLayout(new BorderLayout());
         invAMapa.add(inventarPanel, BorderLayout.NORTH);
-        invAMapa.add(mapa, BorderLayout.CENTER);
+        invAMapa.add(this.mapa, BorderLayout.CENTER);
 
         this.frame.add(invAMapa, BorderLayout.CENTER);
 
@@ -100,12 +108,30 @@ public class Mapa {
         return Mapa.instanceMapa;
     }
 
-    public static GameTile[] getPolicka() {
-        return Arrays.copyOf(policka, policka.length);
+    public GameTile[] getPolicka() {
+        GameTile[] polickaReturn = new GameTile[this.policka.length];
+        for (int i = 0; i < this.policka.length; i++) {
+            polickaReturn[i] = this.policka[i];
+        }
+        return polickaReturn;
     }
 
-    public static void setPolicka(GameTile[] polickaPrepis) {
-        System.arraycopy(polickaPrepis, 0, policka, 0, policka.length);
-//        policka = polickaPrepis;
+    public void setPolicko(GameTile policko, int index) {
+        this.policka[index] = policko;
+    }
+
+    public JFrame getFrame() {
+        return this.frame;
+    }
+
+    public JPanel getMapa() {
+        return this.mapa;
+    }
+
+    public void setTerminalText(String text) {
+        this.info.remove(3);
+        this.info.add(new JLabel(text));
+        this.info.repaint();
+        this.info.revalidate();
     }
 }

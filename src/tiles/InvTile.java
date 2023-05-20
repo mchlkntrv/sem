@@ -1,6 +1,5 @@
 package tiles;
 import hra.Hrac;
-import hra.Mapa;
 import itemy.Predmet;
 import javax.swing.BorderFactory;
 import javax.swing.JMenuItem;
@@ -44,12 +43,12 @@ public class InvTile extends GameTile {
 
     @Override
     public void onClickLeft() {
-        if (Hrac.getInventar().getAktivnyPredmet() != this.predmetVTile) {
-            Hrac.getInventar().setAktivnyPredmet((this.predmetVTile));
+        if (Hrac.getInstance().getInventar().getAktivnyPredmet() != this.predmetVTile) {
+            Hrac.getInstance().getInventar().setAktivnyPredmet((this.predmetVTile));
             super.getTlacitko().setBorderPainted(true);
         } else {
+            Hrac.getInstance().getInventar().setAktivnyPredmet(null);
             super.getTlacitko().setBorderPainted(false);
-            Hrac.getInventar().setAktivnyPredmet(null);
         }
     }
 
@@ -63,7 +62,7 @@ public class InvTile extends GameTile {
         JPopupMenu moznostiKliknutia = new JPopupMenu();
 
         JMenuItem moznost1 = new JMenuItem("Predaj");
-        moznost1.addActionListener(e -> System.out.println(Hrac.getMeno()));
+//        moznost1.addActionListener(e -> {});
         moznostiKliknutia.add(moznost1);
 
         return moznostiKliknutia;
@@ -90,7 +89,7 @@ public class InvTile extends GameTile {
                     }
                     @Override
                     public void mouseExited(MouseEvent e) {
-                        if (Hrac.getInventar().getAktivnyPredmet() != InvTile.this.predmetVTile || InvTile.this.predmetVTile == null ) {
+                        if (Hrac.getInstance().getInventar().getAktivnyPredmet() != InvTile.this.predmetVTile || InvTile.this.predmetVTile == null ) {
                             InvTile.super.getTlacitko().setBorderPainted(false);
                         }
                     }

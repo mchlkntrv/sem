@@ -19,9 +19,6 @@ public class TileButton extends JButton {
         this.setPreferredSize(new Dimension(80, 80));
         Icon obrazokTlacitka = new ImageIcon("Assets\\" + nazovObrazku + ".png");
         this.setIcon(obrazokTlacitka);
-
-//        this.setOverlayTlacitka("tersefe0", "krhlaempty");
-
     }
 
     public void updateTextButtonu(String text) {
@@ -60,4 +57,6 @@ public class TileButton extends JButton {
     public String getNazovObrazku() {
         return this.nazovObrazku;
     }
+
+
 }

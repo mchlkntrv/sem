@@ -1,7 +1,7 @@
 package tiles;
 import hra.Hrac;
 import hra.Mapa;
-import itemy.*;
+import itemy.Krhla;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -26,19 +26,18 @@ public class WaterTile extends GameTile {
 
         JMenuItem moznost1 = new JMenuItem("Naber vodu.");
         moznost1.addActionListener(e -> {
-            if (Hrac.getInventar().getAktivnyPredmet() instanceof Krhla) {
-                ((Krhla)Hrac.getInventar().getAktivnyPredmet()).naplnKrhlu();
+            if (Hrac.getInstance().getInventar().getAktivnyPredmet() instanceof Krhla) {
+                ((Krhla)Hrac.getInstance().getInventar().getAktivnyPredmet()).naplnKrhlu();
 
-                for (GameTile tile : Mapa.getPolicka()) {
+                for (GameTile tile : Mapa.getInstance().getPolicka()) {
                     if (tile instanceof InvTile) {
                         InvTile invTile = (InvTile)tile;
-                        if (invTile.getPredmet() == Hrac.getInventar().getAktivnyPredmet()) {
-                            ((Krhla)Hrac.getInventar().getAktivnyPredmet()).naplnKrhlu();
+                        if (invTile.getPredmet() == Hrac.getInstance().getInventar().getAktivnyPredmet()) {
+                            ((Krhla)Hrac.getInstance().getInventar().getAktivnyPredmet()).naplnKrhlu();
                             invTile.getTlacitko().setOverlayTlacitka("1", "krhlafull");
                         }
                     }
                 }
-
             }
         });
         moznostiKliknutia.add(moznost1);

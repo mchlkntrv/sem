@@ -15,6 +15,7 @@ public class GrassTile extends GameTile {
     public void onClickLeft() {
         super.onClickLeft();
     }
+
     @Override
     public void onClickRight() {
         super.onClickRight();
@@ -36,21 +37,30 @@ public class GrassTile extends GameTile {
 
         JMenuItem moznost1 = new JMenuItem("Poryluj");
         moznost1.addActionListener(e -> {
-            if (Hrac.getInventar().getAktivnyPredmet() instanceof Ryl) {
-                int counter = 0;
-                for (GameTile tile : Mapa.getPolicka()) {
-                    if (tile == GrassTile.this) {
-                        GameTile[] policka = Mapa.getPolicka();
-                        int riadok = policka[counter].getRiadok();
-                        int stlpec = policka[counter].getStlpec();
-//                        policka[counter].getTlacitko().remove(counter);
-//                        policka[counter] = null;
-                        policka[counter] = new SoilTile(riadok, stlpec);
-                        Mapa.setPolicka(policka);
+            if (Hrac.getInstance().getInventar().getAktivnyPredmet() instanceof Ryl) {
+                for (int i = 0; i < Mapa.getInstance().getPolicka().length; i++) {
+                    if (Mapa.getInstance().getPolicka()[i] == GrassTile.this) {
+                        Mapa.getInstance().getMapa().remove(this.getTlacitko());
+
+                        int riadok = this.getRiadok();
+                        int stlpec = this.getStlpec();
+
+                        SoilTile newTile = new SoilTile(riadok, stlpec);
+
+//                        Mapa.getPolicka()[i] = newTile;
+//                        JButton tlacitko = getTlacitko();
+//                        tlacitko.setIcon(new ImageIcon("Assets/rylovane.png"));
+//                        tlacitko.revalidate();
+//                        tlacitko.repaint();
+
+                        Mapa.getInstance().setPolicko(newTile, i);
+                        Mapa.getInstance().getMapa().add(newTile.getTlacitko(), i - 8);
+                        Mapa.getInstance().setTerminalText("Porýľoval si pôdu! Ešte ju musíš zaliať.");
                         break;
                     }
-                    counter++;
                 }
+            } else {
+                Mapa.getInstance().setTerminalText("Na rýľovanie použi rýľ.");
             }
         });
 
