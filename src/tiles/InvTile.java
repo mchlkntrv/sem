@@ -1,8 +1,7 @@
 package tiles;
-import hra.Hrac;
-import hra.Mapa;
-import itemy.Inventar;
-import itemy.Predmet;
+import hra.*;
+import itemy.*;
+
 import javax.swing.BorderFactory;
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -64,15 +63,6 @@ public class InvTile extends GameTile {
             inventar.setAktivnyPredmet(null);
         }
     }
-//    public void onClickLeft() {
-//        if (Hrac.getInstance().getInventar().getAktivnyPredmet() != this.predmetVTile) {
-//            Hrac.getInstance().getInventar().setAktivnyPredmet((this.predmetVTile));
-//            super.getTlacitko().setBorderPainted(true);
-//        } else {
-//            Hrac.getInstance().getInventar().setAktivnyPredmet(null);
-//            super.getTlacitko().setBorderPainted(false);
-//        }
-//    }
 
     @Override
     public void onClickRight() {
@@ -82,11 +72,43 @@ public class InvTile extends GameTile {
     @Override
     public JPopupMenu createPopupMenu() {
         JPopupMenu moznostiKliknutia = new JPopupMenu();
-
         JMenuItem moznost1 = new JMenuItem("Predaj");
-//        moznost1.addActionListener(e -> {});
+        moznost1.addActionListener(e -> {
+            if (this.getPredmet() == null) {
+                Mapa.getInstance().setTerminalText("Čo chceš predať?");
+            } else {
+                for (int i = 0; i < Mapa.getInstance().getPolicka().length; i++) {
+                    if (Mapa.getInstance().getPolicka()[i] instanceof InvTile tileInvMapa) {
+                        if (tileInvMapa.getPredmet() == this.predmetVTile) {
+                            int pocet = InvTile.this.getPredmet().getPocet();
+                            if (pocet > 1) {
+                                Predmet predmet = InvTile.this.getPredmet();
+                                predmet.setPocet(pocet - 1);
+                                InvTile.this.setPredmet(predmet);
+                                InvTile.this.getTlacitko().setOverlayTlacitka(String.valueOf(pocet - 1), InvTile.this.predmetVTile.getNazov());
+                                Hrac.getInstance().setPeniaze(Hrac.getInstance().getPeniaze() + InvTile.this.getPredmet().getCena());
+                                Mapa.getInstance().setPeniazeText();
+                                tileInvMapa.setPredmet(InvTile.this.getPredmet());
+                                Mapa.getInstance().setPolicko(tileInvMapa, i);
+                                break;
+                            } else if (pocet == 1) {
+                                int cena = this.getPredmet().getCena();
+                                Hrac.getInstance().getInventar().removePredmet(this.getPredmet());
+                                InvTile.this.getPredmet().setPocet(0);
+                                InvTile.this.getTlacitko().setOverlayTlacitka(null, null);
+                                InvTile.this.setPredmet(null);
+                                Hrac.getInstance().getInventar().setAktivnyPredmet(null);
+                                Hrac.getInstance().setPeniaze(Hrac.getInstance().getPeniaze() + cena);
+                                Mapa.getInstance().setPeniazeText();
+//                                Mapa.getInstance().setPolicko(null, InvTile.this.getStlpec() - 1);
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+        });
         moznostiKliknutia.add(moznost1);
-
         return moznostiKliknutia;
     }
 

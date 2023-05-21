@@ -14,4 +14,14 @@ public class Kukurica extends Crop {
     public int getPocet() {
         return 1;
     }
+
+    @Override
+    public void setPocet(int pocet) {
+        super.setPocet(pocet);
+    }
+
+    @Override
+    public int getCena() {
+        return 15;
+    }
 }

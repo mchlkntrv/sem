@@ -21,6 +21,11 @@ public abstract class CropSeed implements Predmet {
     }
 
     @Override
+    public void setPocet(int pocet) {
+        this.pocet = pocet;
+    }
+
+    @Override
     public String getNazov() {
         return this.nazov;
     }
@@ -45,6 +50,7 @@ public abstract class CropSeed implements Predmet {
                 if (tile instanceof InvTile) {
                     InvTile invTile = (InvTile)tile;
                     if (invTile.getPredmet() == Hrac.getInstance().getInventar().getAktivnyPredmet()) {
+//                        Mapa.getInstance().setPolicko(null, invTile.getStlpec() - 1);
                         invTile.getTlacitko().setOverlayTlacitka(null, null);
                         invTile.setPredmet(null);
                         Hrac.getInstance().getInventar().removePredmet(Hrac.getInstance().getInventar().getAktivnyPredmet());

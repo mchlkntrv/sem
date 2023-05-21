@@ -13,4 +13,8 @@ public class CviklaSeed extends CropSeed {
     public int getPocet() {
         return super.getPocet();
     }
+    @Override
+    public int getCena() {
+        return 1;
+    }
 }

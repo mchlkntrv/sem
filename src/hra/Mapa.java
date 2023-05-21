@@ -187,4 +187,12 @@ public class Mapa {
         this.info.repaint();
         this.info.revalidate();
     }
+
+    public void setPeniazeText() {
+        JPanel jp = (JPanel)this.info.getComponent(0);
+        JLabel peniazeLabel = (JLabel)jp.getComponent(1);
+        peniazeLabel.setText("Peniaze: " + Hrac.getInstance().getPeniaze());
+        this.info.repaint();
+        this.info.revalidate();
+    }
 }

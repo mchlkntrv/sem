@@ -41,6 +41,10 @@ public class Hrac {
         return "Energia: " + this.aktEnergia + "/" + this.fullEnergia;
     }
 
+    public void setPeniaze(int peniaze) {
+        this.peniaze = peniaze;
+    }
+
     public void pridajEnergiu(int energia) {
         this.aktEnergia += energia;
         Mapa.getInstance().setEnergiaText();

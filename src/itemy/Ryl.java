@@ -16,4 +16,14 @@ public class Ryl extends Naradie {
     public int getPocet() {
         return 1;
     }
+
+    @Override
+    public void setPocet(int i) {
+
+    }
+
+    @Override
+    public int getCena() {
+        return 0;
+    }
 }

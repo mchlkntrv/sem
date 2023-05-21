@@ -4,6 +4,7 @@ public abstract class Crop implements Predmet {
     private int aktFaza;
     private int maxFaza;
     private String nazov;
+    private int pocet;
 
     public Crop(int aktFaza, int maxFaza, String nazov) {
         this.aktFaza = aktFaza;
@@ -28,5 +29,10 @@ public abstract class Crop implements Predmet {
     @Override
     public String getNazov() {
         return this.nazov;
+    }
+
+    @Override
+    public void setPocet(int pocet) {
+        this.pocet = pocet;
     }
 }

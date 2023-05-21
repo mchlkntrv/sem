@@ -51,4 +51,14 @@ public class Krhla extends Naradie {
         return this.pocet;
     }
 
+    @Override
+    public void setPocet(int i) {
+
+    }
+
+    @Override
+    public int getCena() {
+        return 0;
+    }
+
 }
