@@ -17,7 +17,8 @@ public class TileButton extends JButton {
         this.layeredPaneField = new JLayeredPane();
         this.nazovObrazku = nazovObrazku;
         this.setPreferredSize(new Dimension(80, 80));
-        Icon obrazokTlacitka = new ImageIcon("Assets\\" + nazovObrazku + ".png");
+        Icon obrazokTlacitka = new ImageIcon("Assets\\" + nazovObrazku);
+//        Icon obrazokTlacitka = new ImageIcon("Assets\\" + nazovObrazku + ".png");
         this.setIcon(obrazokTlacitka);
     }
 

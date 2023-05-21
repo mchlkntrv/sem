@@ -1,12 +1,8 @@
 package hra;
+import itemy.*;
 import tiles.*;
-
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.*;
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
@@ -25,45 +21,54 @@ public class Mapa {
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setResizable(false);
         this.frame.setTitle("Farmovanie");
+        ImageIcon icon = new ImageIcon("Assets\\ikona.png");
+        this.frame.setIconImage(icon.getImage());
 
         this.policka = new GameTile[64];
         this.den = 1;
 
-        this.info = new JPanel();
-        this.info.setLayout(new FlowLayout(FlowLayout.LEFT));
+        JPanel infoPanel = new JPanel();
+        infoPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
 
         JLabel denLabel = new JLabel();
         denLabel.setText("Deň: " + this.den);
-        this.info.add(denLabel);
+        infoPanel.add(denLabel);
 
         JLabel peniazeLabel = new JLabel();
         peniazeLabel.setText("Peniaze: " + Hrac.getInstance().getPeniaze());
-        this.info.add(peniazeLabel);
+        infoPanel.add(peniazeLabel);
 
         JLabel coin = new JLabel();
         ImageIcon imageIcon = new ImageIcon(new ImageIcon("Assets\\coin.png").getImage().getScaledInstance(20, 20, Image.SCALE_DEFAULT));
         coin.setIcon(imageIcon);
-        this.info.add(coin);
+        infoPanel.add(coin);
+
+        JLabel energia = new JLabel();
+        energia.setText(Hrac.getInstance().getEnergiaStringStav());
+        infoPanel.add(energia);
+
+        JPanel terminalSpaniePanel = new JPanel();
+        terminalSpaniePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
 
         JLabel terminalLabel = new JLabel();
-        terminalLabel.setText("Terminal");
-        this.info.add(terminalLabel);
-        this.info.setBackground(Color.lightGray);
+        terminalLabel.setText("Tu sa ti zobrazia informácie.");
+        terminalSpaniePanel.add(terminalLabel);
 
         TlacitkoSpanie spanie = new TlacitkoSpanie();
-        this.info.add(spanie);
+        terminalSpaniePanel.add(spanie);
 
+        this.info = new JPanel();
+        this.info.setLayout(new GridLayout(1, 2));
+        this.info.add(infoPanel);
+        this.info.add(terminalSpaniePanel);
         this.frame.add(this.info, BorderLayout.NORTH);
 
         JPanel inventarPanel = new JPanel();
         inventarPanel.setLayout(new GridLayout(1, 8));
+
         for (int r = 0; r < 1; r++) {
             for (int s = 0; s < 8; s++) {
-                if (Hrac.getInstance().getInventar().getPredmet(s) != null) {
-                    this.policka[s] = new InvTile( r + 1, s + 1, Hrac.getInstance().getInventar().getPredmet(s));
-                } else {
-                    this.policka[s] = new InvTile( r + 1, s + 1, null);
-                }
+                this.policka[s] = new InvTile( r + 1, s + 1, Hrac.getInstance().getInventar().getPredmet(s));
                 inventarPanel.add(this.policka[s].getTlacitko());
             }
         }
@@ -83,9 +88,9 @@ public class Mapa {
             }
         }
 
-        InvTile policko = (InvTile)this.policka[0];
-        policko.setPredmet(Hrac.getInstance().getInventar().getPredmet(0));
-        this.policka[0] = policko;
+//        InvTile policko = (InvTile)this.policka[0];
+//        policko.setPredmet(Hrac.getInstance().getInventar().getPredmet(0));
+//        this.policka[0] = policko;
 
 
         JPanel invAMapa = new JPanel();
@@ -132,8 +137,53 @@ public class Mapa {
     }
 
     public void setTerminalText(String text) {
-        this.info.remove(3);
-        this.info.add(new JLabel(text), 3);
+        JPanel terminalSpaniePanel = (JPanel)this.info.getComponent(1);
+        JLabel terminalLabel = (JLabel)terminalSpaniePanel.getComponent(0);
+        terminalLabel.setText(text);
+        this.info.repaint();
+        this.info.revalidate();
+    }
+
+    public void pridajDen() {
+        this.den++;
+        JPanel jp = (JPanel)this.info.getComponent(0);
+        JLabel denLabel = (JLabel)jp.getComponent(0);
+        denLabel.setText("Deň: " + this.den);
+        this.info.repaint();
+        this.info.revalidate();
+        Hrac.getInstance().setEnergia(100);
+        this.setEnergiaText();
+
+        for (GameTile gameTile : this.policka) {
+            if (gameTile instanceof SoilTile) {
+                if (((SoilTile)gameTile).getDnesZaliata()) {
+                    ((SoilTile)gameTile).setZaliata(false);
+                    ((SoilTile)gameTile).setDnesZaliata(false);
+                    if (((SoilTile)gameTile).getRastlina() != null) {
+                        Crop crop = ((SoilTile)gameTile).getRastlina();
+                        crop.pridajFazu();
+                        gameTile.getTlacitko().setOverlayTlacitka("", crop.getNazov() + crop.getAktFaza());
+                        this.setTerminalText("Nový deň. Nezabudni na rastliny!");
+                    } else {
+                        gameTile.setMoznostiKliknutia(((SoilTile)gameTile).popupZaliatie());
+                    }
+                } else {
+                    ((SoilTile)gameTile).setZaliata(false);
+                    ((SoilTile)gameTile).setDnesZaliata(false);
+                    ((SoilTile)gameTile).removeRastlina();
+                    gameTile.getTlacitko().setOverlayTlacitka("", "");
+                    ((SoilTile)gameTile).changeToGrass();
+                    this.setTerminalText("Zabudol si na nejaké rastliny. :(");
+                }
+            }
+        }
+
+    }
+
+    public void setEnergiaText() {
+        JPanel jp = (JPanel)this.info.getComponent(0);
+        JLabel energiaLabel = (JLabel)jp.getComponent(3);
+        energiaLabel.setText(Hrac.getInstance().getEnergiaStringStav());
         this.info.repaint();
         this.info.revalidate();
     }

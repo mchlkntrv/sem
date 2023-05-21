@@ -1,5 +1,7 @@
 package tiles;
 import hra.Hrac;
+import hra.Mapa;
+import itemy.Inventar;
 import itemy.Predmet;
 import javax.swing.BorderFactory;
 import javax.swing.JMenuItem;
@@ -12,7 +14,7 @@ import java.util.Optional;
 public class InvTile extends GameTile {
     private Predmet predmetVTile;
     public InvTile(int riadok, int stlpec, Predmet predmet) {
-        super(riadok, stlpec, new TileButton("inv"));
+        super(riadok, stlpec, new TileButton("inv.png"));
         this.predmetVTile = predmet;
 
         Optional<Predmet> optionalPredmet = Optional.ofNullable(predmet);
@@ -43,14 +45,34 @@ public class InvTile extends GameTile {
 
     @Override
     public void onClickLeft() {
-        if (Hrac.getInstance().getInventar().getAktivnyPredmet() != this.predmetVTile) {
-            Hrac.getInstance().getInventar().setAktivnyPredmet((this.predmetVTile));
-            super.getTlacitko().setBorderPainted(true);
+        Inventar inventar = Hrac.getInstance().getInventar();
+        Predmet aktivnyPredmet = inventar.getAktivnyPredmet();
+
+        boolean isActive = (aktivnyPredmet == this.predmetVTile);
+        super.getTlacitko().setBorderPainted(!isActive);
+
+        for (GameTile policko : Mapa.getInstance().getPolicka()) {
+            if (policko instanceof InvTile && policko != this) {
+                InvTile otherTile = (InvTile)policko;
+                otherTile.getTlacitko().setBorderPainted(false);
+            }
+        }
+
+        if (!isActive) {
+            inventar.setAktivnyPredmet(this.predmetVTile);
         } else {
-            Hrac.getInstance().getInventar().setAktivnyPredmet(null);
-            super.getTlacitko().setBorderPainted(false);
+            inventar.setAktivnyPredmet(null);
         }
     }
+//    public void onClickLeft() {
+//        if (Hrac.getInstance().getInventar().getAktivnyPredmet() != this.predmetVTile) {
+//            Hrac.getInstance().getInventar().setAktivnyPredmet((this.predmetVTile));
+//            super.getTlacitko().setBorderPainted(true);
+//        } else {
+//            Hrac.getInstance().getInventar().setAktivnyPredmet(null);
+//            super.getTlacitko().setBorderPainted(false);
+//        }
+//    }
 
     @Override
     public void onClickRight() {
@@ -89,7 +111,7 @@ public class InvTile extends GameTile {
                     }
                     @Override
                     public void mouseExited(MouseEvent e) {
-                        if (Hrac.getInstance().getInventar().getAktivnyPredmet() != InvTile.this.predmetVTile || InvTile.this.predmetVTile == null ) {
+                        if ((Hrac.getInstance().getInventar().getAktivnyPredmet() != InvTile.this.predmetVTile) || InvTile.this.predmetVTile == null ) {
                             InvTile.super.getTlacitko().setBorderPainted(false);
                         }
                     }

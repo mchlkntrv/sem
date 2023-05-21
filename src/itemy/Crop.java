@@ -1,44 +1,32 @@
 package itemy;
 
-import hra.Hrac;
-import hra.Mapa;
-import tiles.GameTile;
-import tiles.InvTile;
-
 public abstract class Crop implements Predmet {
     private int aktFaza;
-    private int pocet;
     private int maxFaza;
     private String nazov;
-    public Crop(String nazov, int maxFaza, int pocet) {
-        this.nazov = nazov;
-        this.aktFaza = 0;
-        this.pocet = pocet;
+
+    public Crop(int aktFaza, int maxFaza, String nazov) {
+        this.aktFaza = aktFaza;
         this.maxFaza = maxFaza;
+        this.nazov = nazov;
     }
 
-    @Override
-    public int getPocet() {
-        return this.pocet;
+    public void pridajFazu() {
+        if (this.aktFaza < this.maxFaza) {
+            this.aktFaza++;
+        }
+    }
+
+    public boolean getIsGrown() {
+        return this.aktFaza == this.maxFaza - 1;
+    }
+
+    public int getAktFaza() {
+        return this.aktFaza;
     }
 
     @Override
     public String getNazov() {
         return this.nazov;
-    }
-
-    public void zasad() {
-        this.pocet--;
-
-        for (GameTile tile : Mapa.getInstance().getPolicka()) {
-            if (tile instanceof InvTile) {
-                InvTile invTile = (InvTile)tile;
-                if (invTile.getPredmet() == Hrac.getInstance().getInventar().getAktivnyPredmet()) {
-                    String text = this.getNazov();
-                    String pocetStr = String.valueOf(this.pocet);
-                    invTile.getTlacitko().setOverlayTlacitka(pocetStr, text);
-                }
-            }
-        }
     }
 }

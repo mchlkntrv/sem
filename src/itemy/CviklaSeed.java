@@ -1,17 +1,16 @@
 package itemy;
 
-public class Kukurica extends Crop {
-    public Kukurica() {
-        super(0, 3, "k");
+public class CviklaSeed extends CropSeed {
+    public CviklaSeed(int pocet) {
+        super("cv0", pocet);
     }
 
     @Override
     public String getNazov() {
         return super.getNazov();
     }
-
     @Override
     public int getPocet() {
-        return 1;
+        return super.getPocet();
     }
 }

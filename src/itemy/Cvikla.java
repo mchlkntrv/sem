@@ -1,15 +1,13 @@
 package itemy;
 
-public class Ryl extends Naradie {
-    public Ryl() {
-        super("ryl", 10, 5);
+public class Cvikla extends Crop {
+    public Cvikla() {
+        super(0, 3, "cv");
     }
-
-
 
     @Override
     public String getNazov() {
-        return "ryl";
+        return super.getNazov();
     }
 
     @Override

@@ -2,22 +2,17 @@ package itemy;
 
 public abstract class Naradie implements Predmet {
     private String nazov;
-    private int cena;
+    private int cenaOpravy;
     private int durability;
-    public Naradie(String nazov, int cena, int durability) {
+    public Naradie(String nazov, int cenaOpravy, int durability) {
         this.nazov = nazov;
-        this.cena = cena;
+        this.cenaOpravy = cenaOpravy;
         this.durability = durability;
     }
 
     @Override
     public String getNazov() {
-        return nazov;
-    }
-
-    @Override
-    public int getCena() {
-        return cena;
+        return this.nazov;
     }
 
 }
