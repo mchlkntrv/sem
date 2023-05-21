@@ -100,7 +100,6 @@ public class InvTile extends GameTile {
                                 Hrac.getInstance().getInventar().setAktivnyPredmet(null);
                                 Hrac.getInstance().setPeniaze(Hrac.getInstance().getPeniaze() + cena);
                                 Mapa.getInstance().setPeniazeText();
-//                                Mapa.getInstance().setPolicko(null, InvTile.this.getStlpec() - 1);
                                 break;
                             }
                         }
@@ -108,6 +107,7 @@ public class InvTile extends GameTile {
                 }
             }
         });
+
         moznostiKliknutia.add(moznost1);
         return moznostiKliknutia;
     }

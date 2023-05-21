@@ -1,8 +1,5 @@
 package hra;
-import itemy.CviklaSeed;
-import itemy.Krhla;
-import itemy.KukuricaSeed;
-import itemy.Ryl;
+import itemy.*;
 
 public class Hra {
     private Hrac hrac;
@@ -13,6 +10,7 @@ public class Hra {
         this.hrac.pridajPredmetDoInv(new Ryl());
         this.hrac.pridajPredmetDoInv(new KukuricaSeed(2));
         this.hrac.pridajPredmetDoInv(new CviklaSeed(1));
+        this.hrac.pridajPredmetDoInv(new JahodaSeed(1));
 
         this.mapa = Mapa.getInstance();
     }

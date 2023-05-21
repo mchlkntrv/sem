@@ -14,8 +14,7 @@ public class TlacitkoSpanie extends JButton {
         this.setIcon(new ImageIcon("Assets\\postel.png"));
         this.setPreferredSize(new Dimension(46, 30));
         this.setFocusPainted(false);
-
-
+        this.setBackground(Color.LIGHT_GRAY);
 
         this.addMouseListener(
                 new MouseAdapter() {
@@ -29,14 +28,6 @@ public class TlacitkoSpanie extends JButton {
                                 Mapa.getInstance().pridajDen();
                             }
                         }
-                    }
-                    @Override
-                    public void mouseEntered(MouseEvent e) {
-                        TlacitkoSpanie.this.setBorderPainted(true);
-                    }
-                    @Override
-                    public void mouseExited(MouseEvent e) {
-                        TlacitkoSpanie.this.setBorderPainted(false);
                     }
                 }
         );

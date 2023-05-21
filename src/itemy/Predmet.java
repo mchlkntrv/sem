@@ -5,4 +5,5 @@ public interface Predmet {
     int getPocet();
     void setPocet(int i);
     int getCena();
+
 }

@@ -1,12 +1,7 @@
 package tiles;
 import hra.Hrac;
 import hra.Mapa;
-import itemy.Crop;
-import itemy.CropSeed;
-import itemy.Cvikla;
-import itemy.Krhla;
-import itemy.Kukurica;
-import itemy.Predmet;
+import itemy.*;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -139,6 +134,9 @@ public class SoilTile extends GameTile {
                 break;
             case "cv0":
                 novaRastlina = new Cvikla();
+                break;
+            case "j0":
+                novaRastlina = new Jahoda();
                 break;
             default:
                 Mapa.getInstance().setTerminalText("Niečo sa pokazilo. :(");

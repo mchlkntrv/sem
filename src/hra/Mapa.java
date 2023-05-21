@@ -2,10 +2,7 @@ package hra;
 import itemy.*;
 import tiles.*;
 import javax.swing.*;
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.Image;
+import java.awt.*;
 
 public class Mapa {
     private static Mapa instanceMapa;
@@ -21,6 +18,7 @@ public class Mapa {
         this.frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.frame.setResizable(false);
         this.frame.setTitle("Farmovanie");
+        this.frame.setBackground(Color.LIGHT_GRAY);
         ImageIcon icon = new ImageIcon("Assets\\ikona.png");
         this.frame.setIconImage(icon.getImage());
 
@@ -29,6 +27,7 @@ public class Mapa {
 
         JPanel infoPanel = new JPanel();
         infoPanel.setLayout(new FlowLayout(FlowLayout.LEFT));
+        infoPanel.setBackground(Color.lightGray);
 
         JLabel denLabel = new JLabel();
         denLabel.setText("Deň: " + this.den);
@@ -49,6 +48,7 @@ public class Mapa {
 
         JPanel terminalSpaniePanel = new JPanel();
         terminalSpaniePanel.setLayout(new FlowLayout(FlowLayout.RIGHT));
+        terminalSpaniePanel.setBackground(Color.lightGray);
 
         JLabel terminalLabel = new JLabel();
         terminalLabel.setText("Tu sa ti zobrazia informácie.");
@@ -56,6 +56,10 @@ public class Mapa {
 
         TlacitkoSpanie spanie = new TlacitkoSpanie();
         terminalSpaniePanel.add(spanie);
+
+        ObchodButton obchodBut = new ObchodButton();
+        terminalSpaniePanel.add(obchodBut);
+
 
         this.info = new JPanel();
         this.info.setLayout(new GridLayout(1, 2));
@@ -88,11 +92,6 @@ public class Mapa {
             }
         }
 
-//        InvTile policko = (InvTile)this.policka[0];
-//        policko.setPredmet(Hrac.getInstance().getInventar().getPredmet(0));
-//        this.policka[0] = policko;
-
-
         JPanel invAMapa = new JPanel();
         invAMapa.setLayout(new BorderLayout());
         invAMapa.add(inventarPanel, BorderLayout.NORTH);
@@ -102,7 +101,6 @@ public class Mapa {
 
         this.frame.pack();
         this.frame.setVisible(true);
-
     }
 
     public static Mapa getInstance() {
@@ -123,10 +121,6 @@ public class Mapa {
     public void setPolicko(GameTile policko, int index) {
         this.policka[index] = policko;
     }
-
-//    public JFrame getFrame() {
-//        return this.frame;
-//    }
 
     public JPanel getMapa() {
         return this.mapa;
@@ -194,5 +188,9 @@ public class Mapa {
         peniazeLabel.setText("Peniaze: " + Hrac.getInstance().getPeniaze());
         this.info.repaint();
         this.info.revalidate();
+    }
+
+    public Component getFrame() {
+        return this.frame;
     }
 }

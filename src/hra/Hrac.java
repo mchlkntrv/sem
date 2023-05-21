@@ -33,7 +33,6 @@ public class Hrac {
     }
 
     public void pridajPredmetDoInv(Predmet predmet) {
-//        this.inventarHraca.addPredmet(predmet);
         this.inventarHraca.addNovyPredmet(predmet);
     }
 

@@ -20,7 +20,6 @@ public class Krhla extends Naradie {
 
     public void pouziKrhlu() {
         this.mnozstvoVody--;
-
         for (GameTile tile : Mapa.getInstance().getPolicka()) {
             if (tile instanceof InvTile) {
                 InvTile invTile = (InvTile)tile;

@@ -1,13 +1,13 @@
 package itemy;
 
-public class Ryl extends Naradie {
-    public Ryl() {
-        super("ryl", 10, 5);
+public class Jahoda extends Crop {
+    public Jahoda() {
+        super(0, 2, "j");
     }
 
     @Override
     public String getNazov() {
-        return "ryl";
+        return super.getNazov();
     }
 
     @Override
@@ -16,12 +16,12 @@ public class Ryl extends Naradie {
     }
 
     @Override
-    public void setPocet(int i) {
-
+    public void setPocet(int pocet) {
+        super.setPocet(pocet);
     }
 
     @Override
     public int getCena() {
-        return 0;
+        return 20;
     }
 }
